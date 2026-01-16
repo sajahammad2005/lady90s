@@ -32,7 +32,7 @@ public class StoreUI {
     }
 
 
-    private Scene buildCategoriesScene() {
+    public Scene buildCategoriesScene() {
         Label title = new Label("The Products");
         title.setFont(Font.font(26));
 
