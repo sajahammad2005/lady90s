@@ -5,7 +5,7 @@ public class Warehouse {
     private int warehouseId;  
     private String name;       
     private Integer branchId;  
-    private String city;       
+    private String location;       
 
     public Warehouse() {
     }
@@ -15,11 +15,11 @@ public class Warehouse {
         setName(name);
     }
 
-    public Warehouse(int warehouseId, String name, Integer branchId, String city) {
+    public Warehouse(int warehouseId, String name, Integer branchId, String location) {
         setWarehouseId(warehouseId);
         setName(name);
         setBranchId(branchId);
-        setCity(city);
+        setCity(location);
     }
 
     public int getWarehouseId() {
@@ -56,15 +56,15 @@ public class Warehouse {
     }
 
     public String getCity() {
-        return city;
+        return location;
     }
 
     public void setCity(String city) {
         if (city == null) {
-            this.city = null;
+            this.location = null;
             return;
         }
-        this.city = city.trim();
+        this.location = city.trim();
     }
 
     @Override
@@ -73,7 +73,7 @@ public class Warehouse {
                 "warehouseId=" + warehouseId +
                 ", name='" + name + '\'' +
                 ", branchId=" + branchId +
-                ", city='" + city + '\'' +
+                ", city='" + location + '\'' +
                 '}';
     }
 }
