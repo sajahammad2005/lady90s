@@ -12,7 +12,7 @@ public class ProductVariant {
     // 🔹 Constructor فارغ
     public ProductVariant() {
     }
-
+//
     // 🔹 Constructor كامل
     public ProductVariant(int variant_id, int product_id, String color,
                           String size, String material, double additional_price) {
