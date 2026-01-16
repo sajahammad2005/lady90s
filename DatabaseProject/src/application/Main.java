@@ -10,8 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -24,7 +23,7 @@ public class Main extends Application {
     public static ObservableList<Product> products = FXCollections.observableArrayList();
     public static ObservableList<ProductVariant> variants = FXCollections.observableArrayList();
     public static ObservableList<Inventory> inventory = FXCollections.observableArrayList();
-
+// rr
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -162,6 +161,7 @@ public class Main extends Application {
 
                 variants.add(new ProductVariant(variantId, productId, color, size, material, addPrice));
             }
+            
 
         } catch (SQLException e) {
             notValidAlert("Database Error (Variants)", e.getMessage());
@@ -214,4 +214,4 @@ public class Main extends Application {
         v.setHeaderText(null);
         v.showAndWait();
     }
-}
+}  
