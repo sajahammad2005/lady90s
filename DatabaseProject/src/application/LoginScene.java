@@ -278,7 +278,7 @@ public class LoginScene {
                 }
 
                 Stage otherStage = new Stage();
-                StoreUI cs = new StoreUI(otherStage, Main.conn);
+                CustomerScene cs = new CustomerScene(otherStage);
                 // إذا CustomerScene 
 Scene customerScene = cs.createScene();
                 otherStage.setScene(customerScene); // لو ما عندك getScene احكيلي كيف بتبنوه
