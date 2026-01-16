@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 //testt 3
 //sajja
 public class Main extends Application {
-
+///ttss
     public static Connection conn = DBConnect.getConnection();
 
     @Override

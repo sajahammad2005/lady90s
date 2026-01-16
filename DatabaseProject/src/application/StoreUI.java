@@ -33,7 +33,7 @@ public class StoreUI {
 
 
     private Scene buildCategoriesScene() {
-        Label title = new Label("أصنافنا");
+        Label title = new Label("The Products");
         title.setFont(Font.font(26));
 
         GridPane grid = new GridPane();
