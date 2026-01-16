@@ -31,7 +31,6 @@ public class StoreUI {
         return buildCategoriesScene();
     }
 
-    // ===================== SCENES =====================
 
     private Scene buildCategoriesScene() {
         Label title = new Label("أصنافنا");
