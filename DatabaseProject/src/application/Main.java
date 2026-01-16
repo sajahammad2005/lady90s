@@ -32,7 +32,6 @@ public class Main extends Application {
         try {
             if (conn != null) System.out.println("Connected!");
             else System.out.println("X");
-
             loadUsers();
 
             loadCustomers();
