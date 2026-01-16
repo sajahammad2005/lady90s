@@ -247,7 +247,7 @@ public class LoginScene {
         loginButton.setText("Signing in...");
         loginButton.setDisable(true);
 
-        String checkQuery = "SELECT * FROM customer WHERE name = ? AND password = ?";
+        String checkQuery = "SELECT * FROM users WHERE username = ? AND password = ?";
 
         try (PreparedStatement stmt = Main.conn.prepareStatement(checkQuery)) {
             stmt.setString(1, userName.getText().trim());
@@ -278,7 +278,7 @@ public class LoginScene {
                 }
 
                 Stage otherStage = new Stage();
-                CustomerScene cs = new CustomerScene(otherStage);
+                StoreUI cs = new StoreUI(otherStage, Main.conn);
                 // إذا CustomerScene 
 Scene customerScene = cs.createScene();
                 otherStage.setScene(customerScene); // لو ما عندك getScene احكيلي كيف بتبنوه

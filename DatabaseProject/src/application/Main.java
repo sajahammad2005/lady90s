@@ -18,6 +18,8 @@ public class Main extends Application {
 
     public static Connection conn = DBConnect.getConnection();
 
+    public static ObservableList<User> users = FXCollections.observableArrayList();
+
     public static ObservableList<Customer> customers = FXCollections.observableArrayList();
     public static ObservableList<Supplier> suppliers = FXCollections.observableArrayList();
     public static ObservableList<Warehouse> warehouses = FXCollections.observableArrayList();
@@ -30,6 +32,8 @@ public class Main extends Application {
         try {
             if (conn != null) System.out.println("Connected!");
             else System.out.println("X");
+
+            loadUsers();
 
             loadCustomers();
             loadSuppliers();
@@ -202,6 +206,38 @@ public class Main extends Application {
         v.setHeaderText(null);
         v.showAndWait();
     }
+    public static void loadUsers() {
+        users.clear();
+        String sql = "SELECT * FROM users";  // اسم الجدول users
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int userId = rs.getInt("user_id");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String role = rs.getString("role");
+
+                Integer staffId = rs.getInt("staff_id");
+                if (rs.wasNull()) staffId = null;
+
+                Integer customerId = rs.getInt("customer_id");
+                if (rs.wasNull()) customerId = null;
+
+                users.add(new User(userId, username, password, role, staffId, customerId));
+            }
+
+            // إذا عندك جدول بالـ UserStage
+            if (UserStage.userTable != null) {
+                UserStage.userTable.setItems(users);
+            }
+
+        } catch (SQLException e) {
+            notValidAlert("Database Error (Users)", e.getMessage());
+        }
+    }
+
 
     public static void validAlert(String title, String content) {
         Alert v = new Alert(AlertType.INFORMATION);
