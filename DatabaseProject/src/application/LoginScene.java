@@ -247,7 +247,7 @@ public class LoginScene {
         loginButton.setText("Signing in...");
         loginButton.setDisable(true);
 
-        String checkQuery = "SELECT * FROM customer WHERE username = ? AND password = ?";
+        String checkQuery = "SELECT * FROM customer WHERE name = ? AND password = ?";
 
         try (PreparedStatement stmt = Main.conn.prepareStatement(checkQuery)) {
             stmt.setString(1, userName.getText().trim());
