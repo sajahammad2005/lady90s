@@ -1,5 +1,10 @@
 package application;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -32,7 +37,11 @@ public class Main extends Application {
             if (conn != null) System.out.println("Connected!");
             else System.out.println("X");
             loadUsers();
-
+            FileChooser f = new FileChooser ();
+            f.setTitle("aa");
+            File file = f.showOpenDialog(primaryStage);
+            String s  = saveImage(file);
+            System.out.println(s);
             loadCustomers();
             loadSuppliers();
             loadWarehouses();
@@ -245,5 +254,13 @@ public class Main extends Application {
 //        v.setGraphic(i);
         v.setHeaderText(null);
         v.showAndWait();
+    }
+    public static String saveImage (File f) throws IOException {
+    	Path target = Paths.get(System.getProperty("user.home"),"images");
+    	Files.createDirectories(target);
+    	String res = f.getName();
+    	Path target1 = target.resolve(res);
+    	Files.copy(f.toPath(), target1 );
+    	return target1.toString();
     }
 }
