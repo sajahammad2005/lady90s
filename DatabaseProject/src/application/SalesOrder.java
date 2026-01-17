@@ -11,11 +11,11 @@ public class SalesOrder {
     private double total_amount;
     private String status;
 
-    // 🔹 Constructor فارغ
+    
     public SalesOrder() {
     }
 
-    // 🔹 Constructor كامل
+    
     public SalesOrder(int sales_order_id, int customer_id, int staff_id,
                       Date order_date, double total_amount, String status) {
         this.sales_order_id = sales_order_id;
