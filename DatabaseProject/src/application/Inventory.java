@@ -12,8 +12,7 @@ public class Inventory {
 
     public Inventory() {
     }
-    // tesst
-    // 🔹 Constructor كامل
+
     public Inventory(int inventory_id, int variant_id, int warehouse_id,
                      int quantity, Date last_updated) {
         this.inventory_id = inventory_id;
