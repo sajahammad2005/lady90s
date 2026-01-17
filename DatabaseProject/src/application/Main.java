@@ -37,11 +37,11 @@ public class Main extends Application {
             if (conn != null) System.out.println("Connected!");
             else System.out.println("X");
             loadUsers();
-            FileChooser f = new FileChooser ();
-            f.setTitle("aa");
-            File file = f.showOpenDialog(primaryStage);
-            String s  = saveImage(file);
-            System.out.println(s);
+//            FileChooser f = new FileChooser ();
+//            f.setTitle("aa");
+//            File file = f.showOpenDialog(primaryStage);
+//            String s  = saveImage(file);
+//            System.out.println(s);
             loadCustomers();
             loadSuppliers();
             loadWarehouses();
@@ -255,12 +255,12 @@ public class Main extends Application {
         v.setHeaderText(null);
         v.showAndWait();
     }
-    public static String saveImage (File f) throws IOException {
-    	Path target = Paths.get(System.getProperty("user.home"),"images");
-    	Files.createDirectories(target);
-    	String res = f.getName();
-    	Path target1 = target.resolve(res);
-    	Files.copy(f.toPath(), target1 );
-    	return target1.toString();
-    }
+//    public static String saveImage (File f) throws IOException {
+//    	Path target = Paths.get(System.getProperty("user.home"),"images");
+//    	Files.createDirectories(target);
+//    	String res = f.getName();
+//    	Path target1 = target.resolve(res);
+//    	Files.copy(f.toPath(), target1 );
+//    	return target1.toString();
+//    }
 }
