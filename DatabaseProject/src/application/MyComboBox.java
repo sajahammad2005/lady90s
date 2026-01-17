@@ -1,4 +1,3 @@
-
 package application;
 
 import javafx.collections.ObservableList;
