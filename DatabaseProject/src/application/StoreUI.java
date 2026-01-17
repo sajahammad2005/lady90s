@@ -101,7 +101,7 @@ public class StoreUI {
         """);
         return b;
     }
-
+//d
     private Label smallBadge(String txt) {
         Label l = new Label(txt);
         l.setStyle("""

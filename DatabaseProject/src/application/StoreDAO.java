@@ -37,6 +37,7 @@ public class StoreDAO {
         }
         return null;
     }
+    //d
     // ===================== 1) ALL PRODUCTS (FOR CARDS) =====================
     public List<ProductCardModel> getAllProductsForCards() throws SQLException {
         List<ProductCardModel> list = new ArrayList<>();
