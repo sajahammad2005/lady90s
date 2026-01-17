@@ -123,4 +123,8 @@ public class User {
             stmt.executeUpdate();
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> branch 'main' of https://github.com/sajahammad2005/lady90s

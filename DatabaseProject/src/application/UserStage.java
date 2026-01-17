@@ -345,6 +345,7 @@ public class UserStage {
     public TableView<User> getUserTable() { return userTable; }
     public VBox getAll() { return all; }
 
+<<<<<<< HEAD
    
     public void showStage() {
         Stage st = new Stage();
@@ -353,3 +354,13 @@ public class UserStage {
         st.show();
     }
 }
+=======
+    // لو بدك تفتحيه كـ Stage:
+    public void showStage() {
+        Stage st = new Stage();
+        st.setTitle("Users");
+        st.setScene(new Scene(all, 800, 700));
+        st.show();
+    }
+}
+>>>>>>> branch 'main' of https://github.com/sajahammad2005/lady90s

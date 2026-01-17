@@ -52,7 +52,6 @@ public class Main extends Application {
         launch(args);
     }
 
-    // ---------- LOADERS (حسب الجداول اللي عندك) ----------
 
     public static void loadCustomers() {
         customers.clear();
@@ -149,7 +148,7 @@ public class Main extends Application {
 
     public static void loadProductVariants() {
         variants.clear();
-        String sql = "SELECT * FROM productvariant"; // ✅ حسب جدولك بالصورة
+        String sql = "SELECT * FROM productvariant"; 
 
         try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -172,7 +171,7 @@ public class Main extends Application {
 
     public static void loadInventory() {
         inventory.clear();
-        String sql = "SELECT * FROM inventory"; // ✅ حسب جدولك بالصورة
+        String sql = "SELECT * FROM inventory";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -192,7 +191,6 @@ public class Main extends Application {
         }
     }
 
-    // ---------- ALERTS ----------
     public static void notValidAlert(String title, String content) {
         Alert v = new Alert(AlertType.ERROR);
         v.setTitle(title);
@@ -206,6 +204,7 @@ public class Main extends Application {
     }
     public static void loadUsers() {
         users.clear();
+<<<<<<< HEAD
         String sql = "SELECT * FROM users";  // اسم الجدول users
 
         try (PreparedStatement stmt = conn.prepareStatement(sql);
@@ -227,6 +226,28 @@ public class Main extends Application {
             }
 
             // إذا عندك جدول بالـ UserStage
+=======
+        String sql = "SELECT * FROM users";  
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int userId = rs.getInt("user_id");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String role = rs.getString("role");
+
+                Integer staffId = rs.getInt("staff_id");
+                if (rs.wasNull()) staffId = null;
+
+                Integer customerId = rs.getInt("customer_id");
+                if (rs.wasNull()) customerId = null;
+
+                users.add(new User(userId, username, password, role, staffId, customerId));
+            }
+
+>>>>>>> branch 'main' of https://github.com/sajahammad2005/lady90s
             if (UserStage.userTable != null) {
                 UserStage.userTable.setItems(users);
             }
