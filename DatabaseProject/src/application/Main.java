@@ -52,6 +52,7 @@ public class Main extends Application {
             notValidAlert("Error", e.getMessage());
         }
     }
+    
 
     public static void main(String[] args) {
         launch(args);

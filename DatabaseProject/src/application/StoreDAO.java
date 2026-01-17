@@ -11,7 +11,34 @@ public class StoreDAO {
     public StoreDAO(Connection conn) {
         this.conn = conn;
     }
+    public String getRandomImageUrlForCategory(String category) throws SQLException {
+        // يرجّع مسار جاهز للـ UI مثل: /images/bag1.jpeg
+        String key = getRandomImageKeyForCategory(category);
+        if (key == null || key.isBlank()) return null;
+        return "/images/" + key.trim() + ".jpeg"; // عدلي الامتداد اذا png
+    }
 
+    public String getRandomImageKeyForCategory(String category) throws SQLException {
+        String sql = """
+            SELECT p.image_key
+            FROM product p
+            WHERE p.category = ?
+              AND p.image_key IS NOT NULL
+              AND TRIM(p.image_key) <> ''
+            ORDER BY RAND()
+            LIMIT 1
+        """;
+
+        try (PreparedStatement st = conn.prepareStatement(sql)) {
+            st.setString(1, category);
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) return rs.getString("image_key");
+            }
+        }
+        return null;
+    }
+    //d
+    // ===================== 1) ALL PRODUCTS (FOR CARDS) =====================
     public List<ProductCardModel> getAllProductsForCards() throws SQLException {
         List<ProductCardModel> list = new ArrayList<>();
 
@@ -21,12 +48,13 @@ public class StoreDAO {
                 p.name,
                 p.description,
                 p.base_price,
+                p.image_key,
                 COALESCE(MIN(pv.additional_price), 0) AS min_add,
                 COALESCE(SUM(i.quantity), 0) AS total_stock
             FROM product p
             LEFT JOIN productvariant pv ON pv.product_id = p.product_id
             LEFT JOIN inventory i ON i.variant_id = pv.variant_id
-            GROUP BY p.product_id, p.name, p.description, p.base_price
+            GROUP BY p.product_id, p.name, p.description, p.base_price, p.image_key
             ORDER BY p.product_id DESC
         """;
 
@@ -41,13 +69,17 @@ public class StoreDAO {
                 double minAdd = rs.getDouble("min_add");
                 int stock = rs.getInt("total_stock");
 
-                list.add(new ProductCardModel(productId, name, desc, null, basePrice, minAdd, stock));
+                String imageKey = rs.getString("image_key");
+                String imageUrl = buildImageUrl(imageKey);
+
+                list.add(new ProductCardModel(productId, name, desc, imageUrl, basePrice, minAdd, stock));
             }
         }
 
         return list;
     }
 
+    // ===================== 2) VARIANTS (BY PRODUCT) =====================
     public List<VariantModel> getVariantsByProduct(int productId) throws SQLException {
         List<VariantModel> list = new ArrayList<>();
 
@@ -85,12 +117,12 @@ public class StoreDAO {
 
         return list;
     }
-
+    // Alias إذا كودك القديم كان بستدعيها
     public List<VariantModel> getVariantsForProduct(int productId) throws SQLException {
         return getVariantsByProduct(productId);
     }
 
-   
+    // ===================== 3) CATEGORIES + COUNTS =====================
     public List<CategoryCount> getCategoriesWithCounts() throws SQLException {
         List<CategoryCount> list = new ArrayList<>();
 
@@ -116,8 +148,8 @@ public class StoreDAO {
 
         return list;
     }
-    
 
+    // ===================== 4) PRODUCTS BY CATEGORY =====================
     public List<ProductCardModel> getProductsByCategory(String category) throws SQLException {
         List<ProductCardModel> list = new ArrayList<>();
 
@@ -127,13 +159,14 @@ public class StoreDAO {
                 p.name,
                 p.description,
                 p.base_price,
+                p.image_key,
                 COALESCE(MIN(pv.additional_price), 0) AS min_add,
                 COALESCE(SUM(i.quantity), 0) AS total_stock
             FROM product p
             LEFT JOIN productvariant pv ON pv.product_id = p.product_id
             LEFT JOIN inventory i ON i.variant_id = pv.variant_id
             WHERE p.category = ?
-            GROUP BY p.product_id, p.name, p.description, p.base_price
+            GROUP BY p.product_id, p.name, p.description, p.base_price, p.image_key
             ORDER BY p.product_id DESC
         """;
 
@@ -149,11 +182,25 @@ public class StoreDAO {
                     double minAdd = rs.getDouble("min_add");
                     int stock = rs.getInt("total_stock");
 
-                    list.add(new ProductCardModel(productId, name, desc, null, basePrice, minAdd, stock));
+                    String imageKey = rs.getString("image_key");
+                    String imageUrl = buildImageUrl(imageKey);
+
+                    list.add(new ProductCardModel(productId, name, desc, imageUrl, basePrice, minAdd, stock));
                 }
             }
         }
 
         return list;
+    }
+
+    // ===================== HELPER: BUILD IMAGE URL FROM image_key =====================
+    private String buildImageUrl(String imageKey) {
+        if (imageKey == null) return null;
+        String key = imageKey.trim();
+        if (key.isEmpty()) return null;
+
+        // ✅ صورك عندك داخل package application (حسب الصورة عندك داخل src/application)
+        // إذا الامتداد مختلف (png) غيّري ".jpeg" لـ ".png"
+        return "/application/" + key + ".jpeg";
     }
 }
