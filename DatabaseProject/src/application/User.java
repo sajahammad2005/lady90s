@@ -12,7 +12,6 @@ public class User {
     private String password;
     private String role;
 
-    // ممكن يكونوا null بالـ DB → نخليهم Integer
     private Integer customerId; 
     private Integer staffId;
 
@@ -26,7 +25,6 @@ public class User {
         this.staffId = staffId;
     }
 
-    // Constructor للإضافة (Insert)
     public User(String userName, String password, String role, Integer customerId, Integer staffId) throws SQLException {
         this.userName = userName;
         this.password = password;
@@ -63,7 +61,6 @@ public class User {
         return -1;
     }
 
-    // ===== Getters =====
     public int getUserId() { return userId; }
     public String getUserName() { return userName; }
     public String getPassword() { return password; }
@@ -71,7 +68,6 @@ public class User {
     public Integer getCustomerId() { return customerId; }
     public Integer getStaffId() { return staffId; }
 
-    // ===== Setters (مع Update DB) =====
     public void setUserName(String userName) throws SQLException {
         this.userName = userName;
         String sql = "UPDATE users SET username=? WHERE user_id=?";
@@ -123,8 +119,4 @@ public class User {
             stmt.executeUpdate();
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> branch 'main' of https://github.com/sajahammad2005/lady90s

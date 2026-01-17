@@ -25,7 +25,7 @@ public class Main extends Application {
     public static ObservableList<Product> products = FXCollections.observableArrayList();
     public static ObservableList<ProductVariant> variants = FXCollections.observableArrayList();
     public static ObservableList<Inventory> inventory = FXCollections.observableArrayList();
-
+// rr
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -55,7 +55,7 @@ public class Main extends Application {
 
     public static void loadCustomers() {
         customers.clear();
-        String sql = "SELECT * FROM customer"; // ✅ حسب جدولك بالصورة
+        String sql = "SELECT * FROM customer"; 
 
         try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -163,6 +163,7 @@ public class Main extends Application {
 
                 variants.add(new ProductVariant(variantId, productId, color, size, material, addPrice));
             }
+            
 
         } catch (SQLException e) {
             notValidAlert("Database Error (Variants)", e.getMessage());
@@ -204,29 +205,6 @@ public class Main extends Application {
     }
     public static void loadUsers() {
         users.clear();
-<<<<<<< HEAD
-        String sql = "SELECT * FROM users";  // اسم الجدول users
-
-        try (PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                int userId = rs.getInt("user_id");
-                String username = rs.getString("username");
-                String password = rs.getString("password");
-                String role = rs.getString("role");
-
-                Integer staffId = rs.getInt("staff_id");
-                if (rs.wasNull()) staffId = null;
-
-                Integer customerId = rs.getInt("customer_id");
-                if (rs.wasNull()) customerId = null;
-
-                users.add(new User(userId, username, password, role, staffId, customerId));
-            }
-
-            // إذا عندك جدول بالـ UserStage
-=======
         String sql = "SELECT * FROM users";  
 
         try (PreparedStatement stmt = conn.prepareStatement(sql);
@@ -247,7 +225,6 @@ public class Main extends Application {
                 users.add(new User(userId, username, password, role, staffId, customerId));
             }
 
->>>>>>> branch 'main' of https://github.com/sajahammad2005/lady90s
             if (UserStage.userTable != null) {
                 UserStage.userTable.setItems(users);
             }

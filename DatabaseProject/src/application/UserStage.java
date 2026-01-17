@@ -41,7 +41,6 @@ public class UserStage {
         userTable.setMaxWidth(700);
         userTable.setItems(Main.users);
 
-        // ========= Buttons =========
 
         add = new MyButton("➕ Add", 2);
         add.setOnAction(e -> openAddUserStage());
@@ -96,18 +95,15 @@ public class UserStage {
         Label roleL = new MyLabel("Role : ");
         MyComboBox<String> roleCB = new MyComboBox<>("admin", "staff", "customer");
 
-        // ✅ حقول IDs (بتظهر حسب الدور)
         Label customerIdL = new MyLabel("Customer Id : ");
         TextField customerIdTF = new MyTextField();
 
         Label staffIdL = new MyLabel("Staff Id : ");
         TextField staffIdTF = new MyTextField();
 
-        // بالبداية مخفيين
         customerIdL.setVisible(false); customerIdTF.setVisible(false);
         staffIdL.setVisible(false); staffIdTF.setVisible(false);
 
-        // لما يتغير الدور
         roleCB.setOnAction(ev -> {
             String r = roleCB.getValue();
 
@@ -120,7 +116,6 @@ public class UserStage {
             staffIdL.setVisible(isStaff);
             staffIdTF.setVisible(isStaff);
 
-            // تنظيف
             customerIdTF.clear();
             staffIdTF.clear();
         });
@@ -345,16 +340,6 @@ public class UserStage {
     public TableView<User> getUserTable() { return userTable; }
     public VBox getAll() { return all; }
 
-<<<<<<< HEAD
-   
-    public void showStage() {
-        Stage st = new Stage();
-        st.setTitle("Users");
-        st.setScene(new Scene(all, 800, 700));
-        st.show();
-    }
-}
-=======
     // لو بدك تفتحيه كـ Stage:
     public void showStage() {
         Stage st = new Stage();
@@ -363,4 +348,3 @@ public class UserStage {
         st.show();
     }
 }
->>>>>>> branch 'main' of https://github.com/sajahammad2005/lady90s

@@ -501,8 +501,6 @@ public class StoreUI {
 
         return card;
     }
-<<<<<<< HEAD
-=======
 
     private Button circleButton(String text) {
         Button b = new Button(text);
@@ -580,5 +578,4 @@ public class StoreUI {
         pop.setScene(new Scene(root, 400, 200));
         pop.show();
     }
->>>>>>> branch 'main' of https://github.com/sajahammad2005/lady90s
 }
