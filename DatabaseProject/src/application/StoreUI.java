@@ -38,8 +38,9 @@ public class StoreUI {
 
     private HBox createTopBar() {
 
-    	ImageView logo = new ImageView(loadImageSafe("/application/logo.jpeg"));        logo.setFitHeight(34);
-        logo.setFitWidth(34);
+    	ImageView logo = new ImageView(loadImageSafe("/application/logo.jpeg"));
+    	logo.setFitHeight(80);
+        logo.setFitWidth(1000);
         logo.setPreserveRatio(true);
 
         Button logoBtn = new Button();
@@ -49,7 +50,6 @@ public class StoreUI {
             -fx-padding: 4;
         """);
         logoBtn.setOnAction(e -> stage.setScene(buildCategoriesScene()));
-
         Button searchBtn = iconBtn("🔍");
         searchBtn.setOnAction(e -> Main.validAlert("Search", "لسا بنعمل واجهة السيرتش"));
 
