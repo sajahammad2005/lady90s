@@ -3,8 +3,7 @@ package application;
 public class CategoryCount {
     private final String category;
     private final int count;
-//tests
-    //ll
+
     public CategoryCount(String category, int count) {
         this.category = category;
         this.count = count;
