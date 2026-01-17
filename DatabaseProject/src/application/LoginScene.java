@@ -68,7 +68,7 @@ public class LoginScene {
         shadow.setOffsetY(10);
         container.setEffect(shadow);
 
-//        ImageView logo = createAnimatedLogo();
+        ImageView logo = createAnimatedLogo();
         VBox headerSection = createHeaderSection();
         VBox inputSection = createInputSection();
         loginButton = createModernLoginButton();
@@ -77,22 +77,22 @@ public class LoginScene {
         return container;
     }
 
-//    private ImageView createAnimatedLogo() {
-//        // لو ما عندك samaLogo.png غيريها أو احذفيها
-//        ImageView logo = new ImageView(new Image("LadyLogo.png"));
-//        logo.setFitHeight(120);
-//        logo.setFitWidth(120);
-//        logo.setPreserveRatio(true);
-//
-//        TranslateTransition floatAnimation = new TranslateTransition(Duration.seconds(3), logo);
-//        floatAnimation.setFromY(-5);
-//        floatAnimation.setToY(5);
-//        floatAnimation.setCycleCount(TranslateTransition.INDEFINITE);
-//        floatAnimation.setAutoReverse(true);
-//        floatAnimation.play();
-//
-//        return logo;
-//    }
+    private ImageView createAnimatedLogo() {
+        // لو ما عندك samaLogo.png غيريها أو احذفيها
+        ImageView logo = new ImageView(new Image("logo.jpeg"));
+        logo.setFitHeight(120);
+        logo.setFitWidth(120);
+        logo.setPreserveRatio(true);
+
+        TranslateTransition floatAnimation = new TranslateTransition(Duration.seconds(3), logo);
+        floatAnimation.setFromY(-5);
+        floatAnimation.setToY(5);
+        floatAnimation.setCycleCount(TranslateTransition.INDEFINITE);
+        floatAnimation.setAutoReverse(true);
+        floatAnimation.play();
+
+        return logo;
+    }
 
     private VBox createHeaderSection() {
         VBox header = new VBox(8);

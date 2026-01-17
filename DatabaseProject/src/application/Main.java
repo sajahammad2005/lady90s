@@ -53,7 +53,6 @@ public class Main extends Application {
         launch(args);
     }
 
-    // ---------- LOADERS (حسب الجداول اللي عندك) ----------
 
     public static void loadCustomers() {
         customers.clear();
@@ -150,7 +149,7 @@ public class Main extends Application {
 
     public static void loadProductVariants() {
         variants.clear();
-        String sql = "SELECT * FROM productvariant"; // ✅ حسب جدولك بالصورة
+        String sql = "SELECT * FROM productvariant"; 
 
         try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -173,7 +172,7 @@ public class Main extends Application {
 
     public static void loadInventory() {
         inventory.clear();
-        String sql = "SELECT * FROM inventory"; // ✅ حسب جدولك بالصورة
+        String sql = "SELECT * FROM inventory";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -193,7 +192,6 @@ public class Main extends Application {
         }
     }
 
-    // ---------- ALERTS ----------
     public static void notValidAlert(String title, String content) {
         Alert v = new Alert(AlertType.ERROR);
         v.setTitle(title);
@@ -207,7 +205,7 @@ public class Main extends Application {
     }
     public static void loadUsers() {
         users.clear();
-        String sql = "SELECT * FROM users";  // اسم الجدول users
+        String sql = "SELECT * FROM users";  
 
         try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -227,7 +225,6 @@ public class Main extends Application {
                 users.add(new User(userId, username, password, role, staffId, customerId));
             }
 
-            // إذا عندك جدول بالـ UserStage
             if (UserStage.userTable != null) {
                 UserStage.userTable.setItems(users);
             }
