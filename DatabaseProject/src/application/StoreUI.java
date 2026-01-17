@@ -34,11 +34,11 @@ public class StoreUI {
         return buildCategoriesScene();
     }
 
-  
+    // ===================== TOP BAR (FIXED) =====================
+
     private HBox createTopBar() {
 
-        ImageView logo = new ImageView(loadImageSafe("/images/logo.jpeg")); 
-        logo.setFitHeight(34);
+    	ImageView logo = new ImageView(loadImageSafe("/application/logo.jpeg"));        logo.setFitHeight(34);
         logo.setFitWidth(34);
         logo.setPreserveRatio(true);
 
@@ -91,7 +91,7 @@ public class StoreUI {
 
         return bar;
     }
-
+   
     private Button iconBtn(String text) {
         Button b = new Button(text);
         b.setStyle("""
@@ -118,12 +118,14 @@ public class StoreUI {
 
     private BorderPane wrapWithTopBar(javafx.scene.Node centerNode) {
         BorderPane root = new BorderPane();
-        root.setTop(createTopBar());         
+        root.setTop(createTopBar());
         root.setCenter(centerNode);
         root.setStyle("-fx-background-color: #fafafa;");
         return root;
     }
+    
 
+    // ===================== 0) CATEGORIES (FIRST SCREEN) =====================
 
     public Scene buildCategoriesScene() {
         Label title = new Label("أصنافنا");
@@ -151,6 +153,7 @@ public class StoreUI {
             int col = 0, row = 0;
             int maxCols = 4;
 
+            // ✅ أول كارد: "كل الشناتي"
             Pane allBags = categoryCard("كل الشناتي", -1, "/images/Dior.jpeg", () -> {
                 stage.setScene(buildAllProductsScene());
             });
@@ -158,8 +161,13 @@ public class StoreUI {
             col++;
             if (col == maxCols) { col = 0; row++; }
 
+            // ✅ باقي الكاتجوريز + صورة راندوم من منتجات الكاتجوري
             for (CategoryCount c : categories) {
-                Pane card = categoryCard(c.getCategory(), c.getCount(), null, () -> {
+
+                String key = dao.getRandomImageKeyForCategory(c.getCategory());
+                String imgPath = (key == null || key.isBlank()) ? null : "/application/" + key.trim() + ".jpeg";
+
+                Pane card = categoryCard(c.getCategory(), c.getCount(), imgPath, () -> {
                     stage.setScene(buildProductsByCategoryScene(c.getCategory()));
                 });
 
@@ -168,7 +176,6 @@ public class StoreUI {
                 col++;
                 if (col == maxCols) { col = 0; row++; }
             }
-
             if (categories.isEmpty()) {
                 root.setCenter(new Label("No categories found."));
             }
@@ -179,6 +186,8 @@ public class StoreUI {
 
         return new Scene(root);
     }
+
+    // ===================== CATEGORY PRODUCTS =====================
 
     private Scene buildProductsByCategoryScene(String category) {
         Button back = new Button("⬅ رجوع");
@@ -229,6 +238,8 @@ public class StoreUI {
 
         return new Scene(root);
     }
+
+    // ===================== CATEGORY CARD =====================
 
     private Pane categoryCard(String categoryName, int badgeNumber, String imagePath, Runnable onClick) {
 
@@ -282,6 +293,7 @@ public class StoreUI {
         return card;
     }
 
+    // ===================== 1) ALL PRODUCTS =====================
 
     public Scene buildAllProductsScene() {
         Label title = new Label("المنتجات");
@@ -333,6 +345,7 @@ public class StoreUI {
         return new Scene(root);
     }
 
+    // ===================== 2) PRODUCT DETAILS =====================
 
     private Scene buildProductDetailsScene(ProductCardModel p) {
         Button back = new Button("⬅ رجوع");
@@ -538,6 +551,7 @@ public class StoreUI {
         return (s == null || s.isBlank()) ? "-" : s;
     }
 
+    // ===================== IMAGE LOADER (SAFE) =====================
 
     private Image loadImageSafe(String imagePath) {
         try {
@@ -545,13 +559,24 @@ public class StoreUI {
                 return placeholder();
             }
 
-            InputStream is = StoreUI.class.getResourceAsStream(imagePath.startsWith("/") ? imagePath : "/" + imagePath);
+            String p = imagePath.startsWith("/") ? imagePath : "/" + imagePath;
 
-            if (is == null) {
-                return placeholder();
+            InputStream is = StoreUI.class.getResourceAsStream(p);
+            if (is != null) return new Image(is);
+
+            // fallback: try png/jpeg swap
+            if (p.endsWith(".jpeg")) {
+                String alt = p.substring(0, p.length() - 5) + ".png";
+                InputStream is2 = StoreUI.class.getResourceAsStream(alt);
+                if (is2 != null) return new Image(is2);
+            }
+            if (p.endsWith(".png")) {
+                String alt = p.substring(0, p.length() - 4) + ".jpeg";
+                InputStream is2 = StoreUI.class.getResourceAsStream(alt);
+                if (is2 != null) return new Image(is2);
             }
 
-            return new Image(is);
+            return placeholder();
 
         } catch (Exception e) {
             return placeholder();
@@ -560,13 +585,14 @@ public class StoreUI {
 
     private Image placeholder() {
         try {
-            InputStream is = StoreUI.class.getResourceAsStream("/Dior.jpeg");
+            InputStream is = StoreUI.class.getResourceAsStream("/images/Dior.jpeg");
             if (is != null) return new Image(is);
         } catch (Exception ignored) {}
 
         return new Image("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2P4//8/AwAI/AL+X2vL3wAAAABJRU5ErkJggg==");
     }
 
+    // ===================== (KEEP OLD METHODS) =====================
 
     private void showVariantsPopup(ProductCardModel product) {
         Stage pop = new Stage();

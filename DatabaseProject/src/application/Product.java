@@ -7,7 +7,8 @@ public class Product {
     private String category;      
     private String brand;         
     private double basePrice;     
-    private String description;   
+    private String description; 
+    private String imageKey;
 
     public Product() {
     }
@@ -20,8 +21,23 @@ public class Product {
         setBasePrice(basePrice);
         setDescription(description);
     }
+    public Product(int productId, String name, String category, String brand, double basePrice, String description,String imageKey) {
+      this(productId, name,  category,  brand,  basePrice,  description);
+        setImageKey(imageKey);
+    }
+    
 
-    public int getProductId() {
+    public String getImageKey() {
+		return imageKey;
+	}
+
+    public void setImageKey(String imageKey) {
+        // عادي يكون null بالبداية
+        if (imageKey != null) imageKey = imageKey.trim();
+        this.imageKey = (imageKey != null && !imageKey.isEmpty()) ? imageKey : null;
+    }
+
+	public int getProductId() {
         return productId;
     }
 
