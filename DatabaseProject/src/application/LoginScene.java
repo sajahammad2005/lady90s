@@ -41,8 +41,7 @@ public class LoginScene {
         loginScene = new Scene(root, 450, 650);
         loginStage = new Stage();
         loginStage.setScene(loginScene);
-        loginStage.setTitle("Lady90s - Login"); // عدلت العنوان لمشروعك
-        // لو ما عندك login.png احذفي السطر الجاي
+        loginStage.setTitle("Lady90s - Login"); 
         // loginStage.getIcons().add(new Image("login.png"));
         loginStage.setResizable(false);
     }
@@ -78,7 +77,6 @@ public class LoginScene {
     }
 
     private ImageView createAnimatedLogo() {
-        // لو ما عندك samaLogo.png غيريها أو احذفيها
         ImageView logo = new ImageView(new Image("logo.jpeg"));
         logo.setFitHeight(120);
         logo.setFitWidth(120);
@@ -242,7 +240,6 @@ public class LoginScene {
         return loginButton;
     }
 
-    // ✅ أهم تعديل: بدون Employees + إذا customer افتحي StoreUI
     private void handleLogin() {
         loginButton.setText("Signing in...");
         loginButton.setDisable(true);
@@ -261,14 +258,13 @@ public class LoginScene {
 
                 showModernAlert(true, "Welcome " + username, "Logged in as " + role);
 
-                // ✅ Customer → StoreUI
                 if (role != null && role.equalsIgnoreCase("customer")) {
 
                     Stage storeStage = new Stage();
 
-                    StoreUI ui = new StoreUI(storeStage, Main.conn);  // ✅ لازم تبعتي stage + conn
+                    StoreUI ui = new StoreUI(storeStage, Main.conn);  
 
-                    Scene storeScene = ui.createScene();              // ✅ هاي بتجهز Scene وترجعها
+                    Scene storeScene = ui.createScene();              
 
                     storeStage.setScene(storeScene);
                     storeStage.show();
@@ -279,9 +275,8 @@ public class LoginScene {
 
                 Stage otherStage = new Stage();
                 CustomerScene cs = new CustomerScene(otherStage);
-                // إذا CustomerScene 
 Scene customerScene = cs.createScene();
-                otherStage.setScene(customerScene); // لو ما عندك getScene احكيلي كيف بتبنوه
+                otherStage.setScene(customerScene); 
                 otherStage.setTitle("Lady90s");
                 otherStage.show();
 

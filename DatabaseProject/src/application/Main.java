@@ -55,7 +55,7 @@ public class Main extends Application {
 
     public static void loadCustomers() {
         customers.clear();
-        String sql = "SELECT * FROM customer"; // ✅ حسب جدولك بالصورة
+        String sql = "SELECT * FROM customer"; 
 
         try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
